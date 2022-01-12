@@ -266,8 +266,7 @@ public class AssignmentElevenPointOne {
         printMenu();
         do {
             menuInput = switchLoop();
-            System.out.println(menuInput);
-        }while (menuInput != "exit");
+        }while (!menuInput.equalsIgnoreCase("exit"));
     }
 
     private void printMenu(){
