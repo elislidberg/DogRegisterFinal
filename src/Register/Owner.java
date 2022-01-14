@@ -5,9 +5,9 @@ import java.util.Arrays;
 
 public class Owner {
     private String name;
-    private Dog dog;
-    private Dog[] dogs = new Dog[0];
-    private int indexCounter;
+    //private Dog dog;// ta bort
+    private Dog[] dogs = new Dog[0]; // byt namn
+    private int indexCounter; //ta bort
 
     public Owner(String name){
         this.name = name;
@@ -22,7 +22,7 @@ public class Owner {
     }
 
     //@UnderTest(id="U8.3")
-    public boolean checkDog(Dog dog){
+    public boolean checkDog(Dog dog){   // se över
         if (dog.getOwner() == null && checkArray(dog)){
             dog.setOwner(this);
             setDog(dog);
@@ -35,14 +35,14 @@ public class Owner {
         return dogs;
     }
 
-    public void setDog(Dog dog){
+    public void setDog(Dog dog){ // byt namn
         //this.dog = dog;
         Dog[] newDogArr = Arrays.copyOf(dogs, dogs.length +1);
         dogs = newDogArr;
         dogs[dogs.length-1] = dog;
     }
 
-    public boolean checkArray(Dog dog){
+    public boolean checkArray(Dog dog){  // byt namn
         for (int i = 0; i < dogs.length;i++){
             if (dog == dogs[i]){
                 return false;
@@ -54,7 +54,7 @@ public class Owner {
         dog.removeOwnerFromDog();
     }
 
-    public void removeDog(Dog dog){
+    public void removeDog(Dog dog){ // bytn namn
         int index = findDogIndex(dog);
         if (index >= 0){
             Dog[] copyArray = new Dog[dogs.length - 1];
@@ -67,7 +67,7 @@ public class Owner {
         }
     }
 
-    public int findDogIndex(Dog dog) {
+    public int findDogIndex(Dog dog) { // bytn namn
         for (int i = 0; i < dogs.length; i++) {
             if (dog == dogs[i]) {
                 return i;

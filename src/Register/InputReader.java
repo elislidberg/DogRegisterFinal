@@ -23,6 +23,8 @@ public class InputReader {
         this(System.in);
     }
 
+    // förtydliga namn
+
     public int intNr(String text){
         System.out.print(text + "?> ");
         int i = input.nextInt();

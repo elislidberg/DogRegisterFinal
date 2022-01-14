@@ -6,7 +6,7 @@ import java.util.List;
 
 public class AssignmentElevenPointOne {
     private InputReader userInput = new InputReader();
-    private List<Dog> listOfDogs = new ArrayList<>();
+    private List<Dog> listOfDogs = new ArrayList<>(); // skriv om namn på liknande sätt
     private List<Owner> ownerList = new ArrayList();
     private Dog newDog;
     private Owner newOwner;
@@ -43,11 +43,12 @@ public class AssignmentElevenPointOne {
         ownerList.add(newOwner);
         System.out.println(newOwner.getName() + " added to register");
     }
-        private Owner createOwner(){
-            String ownerName = userInput.string("Name");
-            Owner owner = new Owner(ownerName);
-            return owner;
-        }
+
+    private Owner createOwner(){
+        String ownerName = userInput.string("Name");
+        Owner owner = new Owner(ownerName);
+        return owner;
+    }
 //-----------------------------------------------------------------------------
 // give dog to owner
     private void giveDogToOwner() {
@@ -126,19 +127,20 @@ public class AssignmentElevenPointOne {
     }
 //-----------------------------------------------------------------------------
 // remove owner
+    // se över detta
     private void removeOwnerFromRegister(){
         String ownerName = userInput.string("Enter the name of the user");
         Owner owner = findOwner(ownerName);
         if (owner != null) {
             removeDogsFromRegister(owner);
-            removeOwnerFromRegister(owner);
+            removeOwner(owner);
             System.out.println(owner.getName() + " is removed from register");
         } else {
             System.out.println("Error: no such owner");
         }
     }
 
-    private void removeOwnerFromRegister(Owner owner){
+    private void removeOwner(Owner owner){
         ownerList.remove(owner);
     }
 
@@ -162,7 +164,7 @@ public class AssignmentElevenPointOne {
         ArrayList<Dog>qualifyingDogs = new ArrayList<>();
         selectionSort();
         for(Dog dog:listOfDogs){
-            if (dog.getTailLength()>tailLength){
+            if (dog.getTailLength()>=tailLength){
                 qualifyingDogs.add(dog);
             }
         }
@@ -214,7 +216,7 @@ public class AssignmentElevenPointOne {
             return 1;
         }
         return 0;
-    }
+    } // compareNameOfDogs
 
     private int compareTwoDogs(Dog i, Dog j) {
         int tailResult = compareTailLength(i, j);
@@ -233,7 +235,7 @@ public class AssignmentElevenPointOne {
             }
         }
         return minDogIndex;
-    }
+    } // byt namn
 
     private int selectionSort() {
         int counter = 0;
@@ -245,7 +247,7 @@ public class AssignmentElevenPointOne {
             }
         }
         return counter;
-    }
+    } // by namn
 
 //----------------------------------------------------------------------------
 // increase age of dog
@@ -258,7 +260,7 @@ public class AssignmentElevenPointOne {
             dogToChangeAge.updateAge(1);
             System.out.println(dogToChangeAge.getName() + " is now one year older");
         }
-    }
+    } // byt namn
 //--------------------------------------------------------------------------------
 // menu and other stuff
     private void mainLoop(){
@@ -266,8 +268,8 @@ public class AssignmentElevenPointOne {
         printMenu();
         do {
             menuInput = switchLoop();
-        }while (!menuInput.equalsIgnoreCase("exit"));
-    }
+        }while (!menuInput.equalsIgnoreCase("exit")); // dubbelkolla exit message
+    } // byt namn
 
     private void printMenu(){
         System.out.println("* register new dog");
@@ -324,17 +326,21 @@ public class AssignmentElevenPointOne {
 // tests
 
     private void addDogsAndOwners(){
-        Dog dog1 = new Dog("Elis", "Tax", 6, 7);
-        Dog dog2 = new Dog("Gustav", "Gold", 2, 34);
-        Dog dog3 = new Dog("Clara", "White", 5, 9);
-        Dog dog4 = new Dog("August", "Blue", 3, 5);
-        Dog dog5 = new Dog("Klara", "Yellow", 1, 5);
+        Dog dog1 = new Dog("Lady", "Grand danois", 6, 6);
+        Dog dog2 = new Dog("Gromit", "Dachshund", 11, 9);
+        Dog dog3 = new Dog("Rowlf", "Tax", 11, 9);
+        Dog dog4 = new Dog("Sparky", "Beagle", 12, 11);
+        Dog dog5 = new Dog("Rin Tin Tin", "Beagle", 7, 19);
+        Dog dog6 = new Dog("Shiloh", "Golden retriever", 18, 11);
+        Dog dog7 = new Dog("Skipper", "Chihuahua", 14, 15);
 
         listOfDogs.add(dog1);
         listOfDogs.add(dog2);
         listOfDogs.add(dog3);
         listOfDogs.add(dog4);
         listOfDogs.add(dog5);
+        listOfDogs.add(dog6);
+        listOfDogs.add(dog7);
 
         Owner owner1 = new Owner("H");
         Owner owner2 = new Owner("J");

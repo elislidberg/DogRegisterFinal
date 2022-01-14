@@ -1,6 +1,6 @@
 package Register;
 //Elis Lidberg elli6378
-
+// se över this
 public class Dog {
     private String name;
     private String breed;
@@ -32,10 +32,10 @@ public class Dog {
 
     private void removeOwner(){
         this.owner = null;
-    }
+    } //se över detta
 
     //@UnderTest(id="U8.3")
-    public boolean checkOwner(Owner owner){
+    public boolean checkOwner(Owner owner){  // se över denna
         if (getOwner() == null && owner.checkArray(this)){
             setOwner(owner);
             owner.setDog(this);
