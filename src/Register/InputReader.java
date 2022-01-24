@@ -25,30 +25,30 @@ public class InputReader {
 
     // förtydliga namn
 
-    public int intNr(String text){
+    public int inputIntNr(String text){
         System.out.print(text + "?> ");
-        int i = input.nextInt();
+        int numberInput = input.nextInt();
         input.nextLine();
-        return i;
+        return numberInput;
     }
 
-    public double doubleNr(String text){
+    public double inputDoubleNr(String text){
         System.out.print(text + "?> ");
-        double i = input.nextDouble();
+        double doubleInput = input.nextDouble();
         input.nextLine();
-        return i;
+        return doubleInput;
     }
 
-    public String string(String text) {
-        String i = "";
-        while (i.trim().length() == 0){
+    public String inputString(String text) {
+        String inputText = "";
+        while (inputText.trim().length() == 0){
             System.out.print(text + "?> ");
-            i = input.nextLine();
-            if (i.trim().length() == 0){
+            inputText = input.nextLine();
+            if (inputText.trim().length() == 0){
                 System.out.println("Error: the name can´t be empty");
             }
         }
-        return i.trim();
+        return inputText.trim();
     }
 }
 

@@ -1,8 +1,8 @@
 package Register;
-
+//Elis Lidberg elli6378
 public class Main {
 
     public static void main(String[] args) {
-        AssignmentElevenPointOne dogRegister = new AssignmentElevenPointOne();
+        DogRegisterMethods dogRegister = new DogRegisterMethods();
     }
 }

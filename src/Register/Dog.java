@@ -24,8 +24,8 @@ public class Dog {
     }
 
     public void removeOwnerFromDog(){
-        if (this.owner != null && !this.owner.checkArray(this))  {
-            this.owner.removeDog(this);
+        if (this.owner != null && !this.owner.checkIfDogInOwnerArray(this))  {
+            this.owner.removeDogFromOwnerArray(this);
             removeOwner();
         }
     }
@@ -35,10 +35,10 @@ public class Dog {
     } //se över detta
 
     //@UnderTest(id="U8.3")
-    public boolean checkOwner(Owner owner){  // se över denna
-        if (getOwner() == null && owner.checkArray(this)){
+    public boolean checkIfDogHasOwner(Owner owner){
+        if (getOwner() == null && owner.checkIfDogInOwnerArray(this)){
             setOwner(owner);
-            owner.setDog(this);
+            owner.addDogToOwner(this);
             return true;
         }
         return false;

@@ -1,33 +1,31 @@
 package Register;
-
+//Elis Lidberg elli6378
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AssignmentElevenPointOne {
+public class DogRegisterMethods {
     private InputReader userInput = new InputReader();
     private List<Dog> listOfDogs = new ArrayList<>(); // skriv om namn på liknande sätt
     private List<Owner> ownerList = new ArrayList();
-    private Dog newDog;
-    private Owner newOwner;
 
-    public AssignmentElevenPointOne(){
-        addDogsAndOwners();
-        mainLoop();
+    public DogRegisterMethods(){
+        //addDogsAndOwners();
+        executeMainLoop();
     }
 
 //----------------------------------------------------------------------
 // Add/create new dog tog to listOfDogs
     private void addDogToList(){
-        this.newDog = createDog();
+        Dog newDog = createDog();
         listOfDogs.add(newDog);
     }
 
     private Dog createDog() {
-        String dogName = userInput.string("Name");
-        String dogBreed = userInput.string("Breed");
-        int dogAge = userInput.intNr("Age");
-        int dogWeight = userInput.intNr("Weight");
+        String dogName = userInput.inputString("Name");
+        String dogBreed = userInput.inputString("Breed");
+        int dogAge = userInput.inputIntNr("Age");
+        int dogWeight = userInput.inputIntNr("Weight");
 
         Dog newDog = new Dog(dogName, dogBreed, dogAge, dogWeight);
         System.out.println(newDog.getName() + " added to the register");
@@ -38,14 +36,14 @@ public class AssignmentElevenPointOne {
 //-----------------------------------------------------------------------------
 //create new Owner
 //@UnderTest(id="U8.1")
-    private void addOwner(){
-        this.newOwner = createOwner();
+    private void addOwnerToList(){
+        Owner newOwner = createOwner();
         ownerList.add(newOwner);
         System.out.println(newOwner.getName() + " added to register");
     }
 
     private Owner createOwner(){
-        String ownerName = userInput.string("Name");
+        String ownerName = userInput.inputString("Name");
         Owner owner = new Owner(ownerName);
         return owner;
     }
@@ -53,19 +51,19 @@ public class AssignmentElevenPointOne {
 // give dog to owner
     private void giveDogToOwner() {
 
-        String dogInput = userInput.string("Enter the name of the dog");
+        String dogInput = userInput.inputString("Enter the name of the dog");
         Dog dog = findDogName(dogInput);
         if (dog == null) {
             System.out.println("Error: no dog with that name");
         } else if (dog.getOwner() != null) {
             System.out.println("Error: the dog already has an owner");
         } else {
-            String ownerInput = userInput.string("Enter the name of the owner");
+            String ownerInput = userInput.inputString("Enter the name of the owner");
             Owner owner = findOwner(ownerInput);
             if (owner == null) {
                 System.out.println("Error: no owner with that name");
             } else {
-                if (dog.checkOwner(owner)){
+                if (dog.checkIfDogHasOwner(owner)){
                     System.out.println(owner.getName() + " now owns " + dog);
                 } else {
                     System.out.println("Error: the dog already has an owner");
@@ -86,8 +84,8 @@ public class AssignmentElevenPointOne {
 
 //-----------------------------------------------------------------------------
 //removeDog
-    private void removeDog(){
-        String inputFromUser = userInput.string("Enter the name of the dog");
+    private void deleteDog(){
+        String inputFromUser = userInput.inputString("Enter the name of the dog");
         Dog deletedDog = findDogName(inputFromUser);
         if (deletedDog == null){
             System.out.println("Error: no such dog");
@@ -97,7 +95,7 @@ public class AssignmentElevenPointOne {
                 listOfDogs.remove(deletedDog);
             }else{
                 Owner owner = deletedDog.getOwner();
-                owner.removeDog(deletedDog);
+                owner.removeDogFromOwnerArray(deletedDog);
                 listOfDogs.remove(deletedDog);
             }
         }
@@ -114,7 +112,7 @@ public class AssignmentElevenPointOne {
 //-----------------------------------------------------------------------------
 // remove owned dog
     private void removeDogFromOwner(){
-        String dogName = userInput.string("Enter the name of the dog");
+        String dogName = userInput.inputString("Enter the name of the dog");
         Dog dog = findDogName(dogName);
         Owner owner = dog.getOwner();
         if (dog == null) {
@@ -127,9 +125,8 @@ public class AssignmentElevenPointOne {
     }
 //-----------------------------------------------------------------------------
 // remove owner
-    // se över detta
     private void removeOwnerFromRegister(){
-        String ownerName = userInput.string("Enter the name of the user");
+        String ownerName = userInput.inputString("Enter the name of the user");
         Owner owner = findOwner(ownerName);
         if (owner != null) {
             removeDogsFromRegister(owner);
@@ -153,7 +150,7 @@ public class AssignmentElevenPointOne {
 //list dogs
     private void takeUserTailInput(){
         if (listOfDogs.size() != 0){
-            double tailLength = userInput.doubleNr("Smallest tail length to display");
+            double tailLength = userInput.inputDoubleNr("Smallest tail length to display");
             listTailLength(tailLength);
         } else{
             System.out.println("Error: No dogs in register!");
@@ -162,7 +159,7 @@ public class AssignmentElevenPointOne {
 
     private void listTailLength(double tailLength){
         ArrayList<Dog>qualifyingDogs = new ArrayList<>();
-        selectionSort();
+        sortDogsInList();
         for(Dog dog:listOfDogs){
             if (dog.getTailLength()>=tailLength){
                 qualifyingDogs.add(dog);
@@ -235,9 +232,9 @@ public class AssignmentElevenPointOne {
             }
         }
         return minDogIndex;
-    } // byt namn
+    }
 
-    private int selectionSort() {
+    private int sortDogsInList() {
         int counter = 0;
         for (int i = 0; i < listOfDogs.size(); i++) {
             int swapIndex = findMinDog(i);
@@ -247,12 +244,12 @@ public class AssignmentElevenPointOne {
             }
         }
         return counter;
-    } // by namn
+    }
 
 //----------------------------------------------------------------------------
 // increase age of dog
-    private void changeAgeInput(){
-        String inptutFromUser = userInput.string("Enter the name of the dog");
+    private void increaseDogAge(){
+        String inptutFromUser = userInput.inputString("Enter the name of the dog");
         Dog dogToChangeAge = findDogName(inptutFromUser);
         if (dogToChangeAge == null){
             System.out.println("Error: no such dog");
@@ -260,16 +257,17 @@ public class AssignmentElevenPointOne {
             dogToChangeAge.updateAge(1);
             System.out.println(dogToChangeAge.getName() + " is now one year older");
         }
-    } // byt namn
+    } 
 //--------------------------------------------------------------------------------
-// menu and other stuff
-    private void mainLoop(){
+// main menu
+    private void executeMainLoop(){
         String menuInput;
         printMenu();
         do {
-            menuInput = switchLoop();
-        }while (!menuInput.equalsIgnoreCase("exit")); // dubbelkolla exit message
-    } // byt namn
+            menuInput = handleMainLoopInput();
+        }while (!menuInput.equalsIgnoreCase("exit"));
+        System.out.println("Goodbye!");
+    }
 
     private void printMenu(){
         System.out.println("* register new dog");
@@ -284,8 +282,8 @@ public class AssignmentElevenPointOne {
         System.out.println("* exit");
     }
 
-    private String switchLoop() {
-        String menuInput = userInput.string("Command");
+    private String handleMainLoopInput() {
+        String menuInput = userInput.inputString("Command");
         switch (menuInput) {
             case "register new dog":
                 addDogToList();
@@ -294,13 +292,13 @@ public class AssignmentElevenPointOne {
                 takeUserTailInput();
                 break;
             case "increase age":
-                changeAgeInput();
+                increaseDogAge();
                 break;
             case "remove dog":
-                removeDog();
+                deleteDog();
                 break;
             case"register new owner":
-                addOwner();
+                addOwnerToList();
                 break;
             case "give dog":
                 giveDogToOwner();
