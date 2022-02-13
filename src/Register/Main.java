@@ -4,5 +4,6 @@ public class Main {
 
     public static void main(String[] args) {
         DogRegisterMethods dogRegister = new DogRegisterMethods();
+        dogRegister.executeMainLoop();
     }
 }

@@ -10,8 +10,7 @@ public class DogRegisterMethods {
     private List<Owner> ownerList = new ArrayList();
 
     public DogRegisterMethods(){
-        //addDogsAndOwners();
-        executeMainLoop();
+        addDogsAndOwners();
     }
 
 //----------------------------------------------------------------------
@@ -95,7 +94,7 @@ public class DogRegisterMethods {
                 listOfDogs.remove(deletedDog);
             }else{
                 Owner owner = deletedDog.getOwner();
-                owner.removeDogFromOwnerArray(deletedDog);
+                owner.deleteDogFromOwner(deletedDog);
                 listOfDogs.remove(deletedDog);
             }
         }
@@ -142,9 +141,20 @@ public class DogRegisterMethods {
     }
 
     private void removeDogsFromRegister(Owner owner){
-        for (Dog dog: owner.getDog()){
+        List<Dog> dogsToRemove = new ArrayList<>();
+        for (Dog dog: listOfDogs){
+            if (owner.checkIfDogInOwnerArray(dog) == false){
+                dogsToRemove.add(dog);
+            }
+        }
+
+        for (Dog dog:dogsToRemove){
             listOfDogs.remove(dog);
         }
+
+        //for (Dog dog: owner.getDog()){
+        //    listOfDogs.remove(dog);
+        //}
     }
 //-----------------------------------------------------------------------------
 //list dogs
@@ -180,14 +190,16 @@ public class DogRegisterMethods {
         if (ownerList.size() != 0) {
             for (Owner owner : ownerList) {
                 System.out.print(owner.getName() + " ");
-                Dog[] newDogArr = owner.getDog();
-                for (Dog dog : newDogArr) {
-                    System.out.print(dog + " ");
+                for (Dog dog:listOfDogs){
+                    if (!owner.checkIfDogInOwnerArray(dog)){
+                        System.out.print(dog + " ");
+                    }
                 }
+                //------------
                 System.out.println();
             }
         }else {
-            System.out.print("Error: no owners in register");
+            System.out.println("Error: no owners in register");
         }
     }
 //----------------------------------------------------------------------------
@@ -238,8 +250,8 @@ public class DogRegisterMethods {
         int counter = 0;
         for (int i = 0; i < listOfDogs.size(); i++) {
             int swapIndex = findMinDog(i);
-            swapTwoDogs(i, swapIndex);
             if (i != swapIndex) {
+                swapTwoDogs(i, swapIndex);
                 counter++;
             }
         }
@@ -260,7 +272,7 @@ public class DogRegisterMethods {
     } 
 //--------------------------------------------------------------------------------
 // main menu
-    private void executeMainLoop(){
+    public void executeMainLoop(){
         String menuInput;
         printMenu();
         do {

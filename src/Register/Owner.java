@@ -28,6 +28,7 @@ public class Owner {
         return false;
     }
 
+
     public Dog[] getDog(){
         Dog[] copyOfOwnerDogs = listOfOwnerDogs.clone();
         return copyOfOwnerDogs;
@@ -48,11 +49,7 @@ public class Owner {
         } return true;
     }
 
-    public void removeDogFromOwner(Dog dog){
-        dog.removeOwnerFromDog();
-    }
-
-    public void removeDogFromOwnerArray(Dog dog){
+    public void deleteDogFromOwner(Dog dog){
         int index = findIndexOfDogInList(dog);
         if (index >= 0){
             Dog[] copyArray = new Dog[listOfOwnerDogs.length - 1];

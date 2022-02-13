@@ -25,7 +25,7 @@ public class Dog {
 
     public void removeOwnerFromDog(){
         if (this.owner != null && !this.owner.checkIfDogInOwnerArray(this))  {
-            this.owner.removeDogFromOwnerArray(this);
+            this.owner.deleteDogFromOwner(this);
             removeOwner();
         }
     }
